@@ -1,7 +1,19 @@
+require('dotenv').config();
 const express = require('express');
-const ctrl = require('./controller');
+const massive = require('massive');
 const app = express();
-const port = 3005
+
+const { SERVER_PORT, CONNECTION_STRING } = process.env;
+
+massive({
+  connectionString: CONNECTION_STRING,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
 
 
-app.listen(port, () => console.log(`Server listening on port ${port}.`));
+
+app.listen(SERVER_PORT, () => {
+  console.log(`Server listening on port ${SERVER_PORT}.`);
+})
